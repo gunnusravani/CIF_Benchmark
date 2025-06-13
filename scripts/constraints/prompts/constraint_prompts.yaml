@@ -1,0 +1,39 @@
+characteristics_to_list: |
+  Convert the following paragraph of characteristics into a clean Python list of quoted strings.
+
+  - Each list item should represent **one complete, self-contained sentence**.
+  - Preserve the **original phrasing and intent**.
+  - Maintain any relevant technical keywords (e.g., method names, function calls, attribute names).
+  - Avoid merging or splitting sentences unnecessarily.
+  - Ensure the result is a **syntactically valid Python list of strings**, where each line ends with a comma except the last one.
+  - Include code-like structure such as method names, formulas, or library mentions where applicable.
+  - Keep consistent formatting for dot-methods (e.g., `math.acos`) and function names (e.g., `calculate_distance()`).
+
+  ### Example Input:
+  Logic is modularized using calculate_distance and calculate_angle., 
+  Both distance and angle values are rounded to two decimal places.,
+  Vector components are computed as point2 - point1, respecting directionality.,
+  Assumes input is 3D and operates on x, y, z coordinates.,
+  Angle formula divides only after ensuring denominator (distance) is computed.,
+  Uses math.acos and math.sqrt from Python’s standard math library.,
+  Did not use global variables and all inputs are explicitly passed.,
+  Did not mutate the input points; ensure inputs remain untouched throughout the computation.
+
+  ### Example Output:
+  [
+      "Logic is modularized using calculate_distance and calculate_angle.",
+      "Both distance and angle values are rounded to two decimal places.",
+      "Vector components are computed as point2 - point1, respecting directionality.",
+      "Assumes input is 3D and operates on x, y, z coordinates.",
+      "Angle formula divides only after ensuring denominator (distance) is computed.",
+      "Uses math.acos and math.sqrt from Python’s standard math library.",
+      "Did not use global variables and all inputs are explicitly passed.",
+      "Did not mutate the input points; ensure inputs remain untouched throughout the computation."
+  ]
+
+  Now process the following paragraph accordingly:
+
+constraint_category_generation: |
+  I have a set of characteristics and constraints extracted from code instructions.
+  Please analyze them and generate a concise list of 10–20 high-level constraint categories under which they can be grouped.
+  Output only the final list of categories in valid YAML format.

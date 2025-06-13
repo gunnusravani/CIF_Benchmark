@@ -1,0 +1,12 @@
+pyyaml
+pandas
+ratelimit
+openai
+tqdm
+datasets
+langchain_openai
+langchain_ollama
+python-dotenv
+jupyterlab>=4.0
+
+

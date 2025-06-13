@@ -1,0 +1,21 @@
+constraint_categories:
+  constraint_categories:
+  - Financial Constraints
+  - Data Structure Requirements
+  - Functionality Specifications
+  - Input Validation
+  - Error Handling Guidelines
+  - Testing and Coverage Standards
+  - Performance Optimization
+  - Method and Class Design
+  - Compatibility and Portability
+  - Output Formatting and Presentation
+  - Security and Encryption Standards
+  - Statistical and Mathematical Constraints
+  - User Interaction and Interface Design
+  - Documentation and Commenting Standards
+  - Dependency Management
+  - Code Style and Formatting
+  - Data Processing and Manipulation
+  - Logical Flow and Control Structures
+  - Environmental Assumptions

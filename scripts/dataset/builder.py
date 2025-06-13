@@ -1,7 +1,8 @@
 import pandas as pd
 from datasets import load_dataset
 import random
-from utils.config_loader import load_config
+from utils.config_loader import load_yaml_config, load_path_registry
+
 from scripts.dataset.extractor import extract_fields
 import os
 
@@ -15,7 +16,8 @@ def build_dataset(
     sample_size=10,
     save_path=default_output_path,
 ):
-    config = load_config()
+    paths = load_path_registry()
+    config = load_yaml_config(paths["datasets"])
     dataset_info = config.get("datasets", [])
     all_data = []
 
