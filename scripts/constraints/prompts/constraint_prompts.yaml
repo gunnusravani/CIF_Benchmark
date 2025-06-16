@@ -1,39 +1,187 @@
 characteristics_to_list: |
-  Convert the following paragraph of characteristics into a clean Python list of quoted strings.
-
-  - Each list item should represent **one complete, self-contained sentence**.
-  - Preserve the **original phrasing and intent**.
-  - Maintain any relevant technical keywords (e.g., method names, function calls, attribute names).
-  - Avoid merging or splitting sentences unnecessarily.
-  - Ensure the result is a **syntactically valid Python list of strings**, where each line ends with a comma except the last one.
-  - Include code-like structure such as method names, formulas, or library mentions where applicable.
-  - Keep consistent formatting for dot-methods (e.g., `math.acos`) and function names (e.g., `calculate_distance()`).
-
-  ### Example Input:
-  Logic is modularized using calculate_distance and calculate_angle., 
-  Both distance and angle values are rounded to two decimal places.,
-  Vector components are computed as point2 - point1, respecting directionality.,
-  Assumes input is 3D and operates on x, y, z coordinates.,
-  Angle formula divides only after ensuring denominator (distance) is computed.,
-  Uses math.acos and math.sqrt from Python’s standard math library.,
-  Did not use global variables and all inputs are explicitly passed.,
+  Convert the following paragraph into a Python list of strings.
+  Instructions:
+    - Each list item should be one complete sentence.
+    - Keep the original wording and technical terms (e.g., method names, function calls).
+    - Do not combine or split sentences unnecessarily.
+    - Output a valid Python list of double-quoted strings, with commas at the end of each line (except the last).
+    -Include function names or code snippets as they appear.
+  Example Input:
+  Logic is modularized using calculate_distance and calculate_angle.
+  Both distance and angle values are rounded to two decimal places.
+  Vector components are computed as point2 - point1, respecting directionality.
+  Assumes input is 3D and operates on x, y, z coordinates.
+  Angle formula divides only after ensuring denominator (distance) is computed.
+  Uses math.acos and math.sqrt from Python standard math library.
+  Did not use global variables and all inputs are explicitly passed.
   Did not mutate the input points; ensure inputs remain untouched throughout the computation.
-
-  ### Example Output:
+  Example Output:
   [
-      "Logic is modularized using calculate_distance and calculate_angle.",
-      "Both distance and angle values are rounded to two decimal places.",
-      "Vector components are computed as point2 - point1, respecting directionality.",
-      "Assumes input is 3D and operates on x, y, z coordinates.",
-      "Angle formula divides only after ensuring denominator (distance) is computed.",
-      "Uses math.acos and math.sqrt from Python’s standard math library.",
-      "Did not use global variables and all inputs are explicitly passed.",
-      "Did not mutate the input points; ensure inputs remain untouched throughout the computation."
+    "Logic is modularized using calculate_distance and calculate_angle.",
+    "Both distance and angle values are rounded to two decimal places.",
+    "Vector components are computed as point2 - point1, respecting directionality.",
+    "Assumes input is 3D and operates on x, y, z coordinates.",
+    "Angle formula divides only after ensuring denominator (distance) is computed.",
+    "Uses math.acos and math.sqrt from Python standard math library.",
+    "Did not use global variables and all inputs are explicitly passed.",
+    "Did not mutate the input points; ensure inputs remain untouched throughout the computation."
   ]
+  Now convert the following paragraph accordingly:
 
-  Now process the following paragraph accordingly:
 
-constraint_category_generation: |
+constraint_category_generation_v1: |
   I have a set of characteristics and constraints extracted from code instructions.
   Please analyze them and generate a concise list of 10–20 high-level constraint categories under which they can be grouped.
   Output only the final list of categories in valid YAML format.
+  ### Output Format (in valid YAML):
+  constraint_categories_v1:
+    - name: <category_name>
+      description: <what it includes>
+
+
+constraint_category_generation_v2: |
+  I am working on analyzing programming constraints applied to code.
+
+  Below are examples of how existing constraints from a benchmark (CodeIF) are grouped into broad categories.
+  Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
+    - Covers the CodeIF examples
+    - Covers the full list of constraints and characteristics provided below
+    - Groups all constraints into 10–20 meaningful categories
+    - Splits the categories into two types:
+        • simple: general categories that apply to most coding tasks
+        • complex: categories that are problem-specific or instruction-dependent
+
+  ### CodeIF Constraint Examples
+
+  1. Constraint: "Your code should only use global variables."
+     → Category: global
+
+  2. Constraint: "Your code should not use more than 2 function calls."
+     → Category: global
+
+  3. Constraint: "Your code should not use while-loops."
+     → Category: structural control
+
+  4. Constraint: "Variable {variable.name} should be a constant."
+     → Category: variable
+
+  5. Constraint: "Your code should include a function named {function.name}."
+     → Category: function
+
+  6. Constraint: "The interface names in your code should follow the naming convention."
+     → Category: interface
+
+  7. Constraint: "Your code should define a class named {class.name}."
+     → Category: class
+
+  8. Constraint: "Your code should be organized in a package named {package.name}."
+     → Category: file
+
+  ### Characteristics from Dataset
+  {characteristics_block}
+
+  ### Constraints from Dataset
+  {constraints_block}
+
+  ### Task:
+  Analyze all of the above. Generate a refined set of constraint categories that capture the different styles, formats, and scopes of constraints observed. Ensure these categories:
+    - Are mutually exclusive and collectively exhaustive
+    - Cover all the examples above and the dataset-specific constraints
+    - Are split into two types: `simple` and `complex`
+  ### Note:
+  Just give the output don't include any other text or explanation
+  ### Output Format (in valid YAML):
+  constraint_categories_v2:
+    simple_categories:
+      - name: <category_name>
+        description: <what it includes>
+      - ...
+    complex_categories:
+      - name: <category_name>
+        description: <what it includes>
+      - ...
+  
+constraint_category_generation_v3: |
+  I am working on analyzing programming constraints applied to code.
+
+  Below are examples of how existing constraints from a benchmark (CodeIF) are grouped into broad categories.
+  Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
+    - Covers the CodeIF examples
+    - Covers the full list of constraints and characteristics provided below
+    - Groups all constraints into 15 meaningful categories
+    - Splits the categories into two types:
+        • simple: general categories that apply to most coding tasks
+        • complex: categories that are problem-specific or instruction-dependent
+
+  ### CodeIF Constraint Examples
+
+  1. Constraint: "Your code should only use global variables."
+     → Category: global
+
+  2. Constraint: "Your code should not use more than 2 function calls."
+     → Category: global
+
+  3. Constraint: "Your code should not use while-loops."
+     → Category: structural control
+
+  4. Constraint: "Variable {variable.name} should be a constant."
+     → Category: variable
+
+  5. Constraint: "Your code should include a function named {function.name}."
+     → Category: function
+
+  6. Constraint: "The interface names in your code should follow the naming convention."
+     → Category: interface
+
+  7. Constraint: "Your code should define a class named {class.name}."
+     → Category: class
+
+  8. Constraint: "Your code should be organized in a package named {package.name}."
+     → Category: file
+
+  ### Characteristics from Dataset
+  {characteristics_block}
+
+  ### Constraints from Dataset
+  {constraints_block}
+
+  ### Task:
+  Analyze all of the above. Generate a refined set of constraint categories that capture the different styles, formats, and scopes of constraints observed. Ensure these categories:
+    - Are mutually exclusive and collectively exhaustive
+    - Cover all the examples above and the dataset-specific constraints
+    - Are split into two types: `simple` and `complex`
+  ### Note:
+  Just give the output don't include any other text or explanation
+  ### Output Format (in valid YAML):
+  constraint_categories_v3:
+    simple_categories:
+      - name: <category_name>
+        description: <what it includes>
+      - ...
+    complex_categories:
+      - name: <category_name>
+        description: <what it includes>
+      - ...
+  
+
+map_items_to_categories: |
+  You are provided with a programming instruction, a code snippet, and a list of technical items. Each item is either a constraint or a characteristic related to the instruction/code.
+
+  Your task is to map each item into one of the provided constraint categories based on its meaning and scope.
+
+  ### Categories:
+  {category_descriptions}
+
+  ### Instruction:
+  {instruction}
+
+  ### Code:
+  {code}
+
+  ### Items:
+  {item_list}
+
+  ### Output Format:
+  Return a Python dictionary where each key is a category name and the value is a list of items that belong to that category. Ensure all items are included in exactly one category.
+
+

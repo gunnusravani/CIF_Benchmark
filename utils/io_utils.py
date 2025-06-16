@@ -16,5 +16,5 @@ def save_csv(df, path):
 
 def save_yaml(data, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
+    with open(path, "a") as f:
         yaml.dump(data, f, default_flow_style=False, sort_keys=False)
