@@ -108,7 +108,7 @@ constraint_category_generation_v3: |
   Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
     - Covers the CodeIF examples
     - Covers the full list of constraints and characteristics provided below
-    - Groups all constraints into 15 meaningful categories
+    - Groups all constraints into 20 meaningful categories
     - Splits the categories into two types:
         • simple: general categories that apply to most coding tasks
         • complex: categories that are problem-specific or instruction-dependent
