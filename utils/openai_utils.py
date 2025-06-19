@@ -1,6 +1,7 @@
 import openai
 import os
 import yaml
+import json
 from dotenv import load_dotenv
 from openai import OpenAI
 from utils.format_utils import format_list_for_prompt
@@ -108,10 +109,9 @@ def format_categories_for_prompt(category_data: dict) -> str:
 def map_items_to_categories(
     row,
     item_colname,
-    category_data,
     prompt_template,
     model="gpt-4o-mini",
-    temperature=0.3,
+    temperature=0,
     client_type="openai",
     base_url=None,
 ):
@@ -126,7 +126,6 @@ def map_items_to_categories(
     code = row["code"]
 
     prompt = prompt_template.format(
-        category_descriptions=format_categories_for_prompt(category_data),
         instruction=instruction,
         code=code,
         item_list="\n".join([f"- {item}" for item in item_list]),
@@ -135,13 +134,70 @@ def map_items_to_categories(
     try:
 
         content = get_response(client, model, prompt, temperature)
-
         if content.startswith("```python"):
             content = content.replace("```python", "").replace("```", "").strip()
-
+        if content.startswith("```"):
+            content = content.replace("```", "").strip()
+        if content.endswith("```"):
+            content = content.replace("```", "").strip()
+        print(content)
         parsed = eval(content.strip(), {"__builtins__": None}, {})
         return parsed if isinstance(parsed, dict) else {}
 
     except Exception as e:
         print(f"Error: {e}")
         return {}
+
+
+def generate_constraint_categories_row_wise(
+    row,
+    prompt_template,
+    model="gpt-4o",
+    temperature=0,
+    client_type="openai",
+    base_url=None,
+):
+
+    client = get_client(client_type, base_url)
+
+    instruction = row["instruction"]
+    code = row["code"]
+    characteristics = row["Characteristics_List"]
+    constraints = row["constraints"]
+
+    prompt = prompt_template.format(
+        instruction_block=instruction.strip(),
+        code_block=code.strip(),
+        characteristics_block=characteristics.strip(),
+        constraints_block=constraints.strip(),
+    )
+
+    try:
+        content = get_response(client, model, prompt, temperature)
+
+        if content.startswith("```python"):
+            content = content.replace("```python", "").replace("```", "").strip()
+        if content.startswith("```"):
+            content = content.replace("```", "").strip()
+        if content.endswith("```"):
+            content = content.replace("```", "").strip()
+
+        print(content)
+        return content
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+
+def generate_tree_categories(
+    prompt,
+    model="gpt-4o-mini",
+    temperature=0,
+    client_type="openai",
+    base_url=None,
+):
+
+    client = get_client(client_type, base_url)
+    content = get_response(client, model, prompt, temperature)
+    return content

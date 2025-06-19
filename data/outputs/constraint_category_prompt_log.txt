@@ -608,3 +608,457 @@ Categories:
       description: Constraints that enforce security measures, such as input validation and secure data handling.
     - name: customization
       description: Constraints that allow for specific customizations based on user input or configuration settings.
+
+Model Name: gpt-4o-mini===== Prompt Sent to Model =====
+I am working on analyzing programming constraints applied to code.
+
+Below are examples of how existing constraints from a benchmark (CodeIF) are grouped into broad categories.
+Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
+  - Covers the CodeIF examples
+  - Covers the full list of constraints and characteristics provided below
+  - Groups all constraints into 15 meaningful categories
+  - Splits the categories into two types:
+      • simple: general categories that apply to most coding tasks
+      • complex: categories that are problem-specific or instruction-dependent
+
+### CodeIF Constraint Examples
+
+1. Constraint: "Your code should only use global variables."
+   → Category: global
+
+2. Constraint: "Your code should not use more than 2 function calls."
+   → Category: global
+
+3. Constraint: "Your code should not use while-loops."
+   → Category: structural control
+
+4. Constraint: "Variable {variable.name} should be a constant."
+   → Category: variable
+
+5. Constraint: "Your code should include a function named {function.name}."
+   → Category: function
+
+6. Constraint: "The interface names in your code should follow the naming convention."
+   → Category: interface
+
+7. Constraint: "Your code should define a class named {class.name}."
+   → Category: class
+
+8. Constraint: "Your code should be organized in a package named {package.name}."
+   → Category: file
+
+### Characteristics from Dataset
+{characteristics_block}
+
+### Constraints from Dataset
+{constraints_block}
+
+### Task:
+Analyze all of the above. Generate a refined set of constraint categories that capture the different styles, formats, and scopes of constraints observed. Ensure these categories:
+  - Are mutually exclusive and collectively exhaustive
+  - Cover all the examples above and the dataset-specific constraints
+  - Are split into two types: `simple` and `complex`
+  - Include 2 representative examples for each category taken strictly from `{characteristics_block}` or `{constraints_block}` only
+
+### Note:
+Just give the output don't include any other text or explanation
+
+### Output Format (in valid YAML):
+constraint_categories_v3:
+  simple_categories:
+    - name: <category_name>
+      description: <what it includes>
+      examples:
+        - "<example 1 from characteristics_block or constraints_block>"
+        - "<example 2 from characteristics_block or constraints_block>"
+    - ...
+  complex_categories:
+    - name: <category_name>
+      description: <what it includes>
+      examples:
+        - "<example 1 from characteristics_block or constraints_block>"
+        - "<example 2 from characteristics_block or constraints_block>"
+
+
+====Generated Constraints====
+Categories:
+  - constraint_categories_v3:
+  simple_categories:
+    - name: variable_scope
+      description: Constraints related to the usage of variables, including global and local scopes.
+      examples:
+        - "Your code should only use global variables."
+        - "Variable {variable.name} should be a constant."
+    - name: function_usage
+      description: Constraints governing the definition and usage of functions within the code.
+      examples:
+        - "Your code should include a function named {function.name}."
+        - "Your code should not use more than 2 function calls."
+    - name: control_structure
+      description: Constraints on the structural elements of control flow, such as loops and conditionals.
+      examples:
+        - "Your code should not use while-loops."
+        - "Your code should not use for-loops."
+    - name: naming_convention
+      description: Constraints regarding the naming conventions for various code elements.
+      examples:
+        - "The interface names in your code should follow the naming convention."
+        - "All string attributes are expected to be of type str."
+    - name: documentation
+      description: Constraints related to the documentation and comments within the code.
+      examples:
+        - "All methods include detailed docstrings explaining their purpose, parameters, and expected behavior."
+        - "Includes a descriptive docstring."
+  
+  complex_categories:
+    - name: data_structure
+      description: Constraints related to the organization and structure of data, including classes and packages.
+      examples:
+        - "Your code should define a class named {class.name}."
+        - "Your code should be organized in a package named {package.name}."
+    - name: error_handling
+      description: Constraints governing how errors and exceptions are managed within the code.
+      examples:
+        - "Adds error handling to gracefully report sensor communication issues."
+        - "Avoid complex error handling or logging mechanisms."
+    - name: performance
+      description: Constraints focused on the efficiency and performance of the code.
+      examples:
+        - "Avoid unnecessary recomputation by separating exponentiation logic from coprimality check."
+        - "Avoid using explicit loops; prefer vectorized operations."
+    - name: input_validation
+      description: Constraints that ensure the correctness and validity of inputs to functions or methods.
+      examples:
+        - "Input validation is performed to ensure the argument is a non-negative integer."
+        - "Check for user existence without adding additional error handling or validation."
+    - name: output_format
+      description: Constraints regarding the format and structure of outputs produced by the code.
+      examples:
+        - "Returns output in LaTeX table format."
+        - "Returns a DataFrame where each column contains CDF values indexed by unique data values."
+    - name: compatibility
+      description: Constraints ensuring compatibility across different environments or versions of programming languages.
+      examples:
+        - "Ensures backward compatibility by not modifying existing methods or priorities."
+        - "Ensures compatibility between Python 2 and Python 3 using version check via sys.version_info."
+    - name: security
+      description: Constraints focused on the security aspects of the code, especially in handling sensitive data.
+      examples:
+        - "Encrypts the private key using AES in EAX mode."
+        - "Base64-encodes the encrypted private key for safe text storage."
+    - name: testing
+      description: Constraints related to the testing and validation of code functionality.
+      examples:
+        - "Code coverage measurement is integrated using the pytest-cov plugin to quantify test effectiveness."
+        - "Tests are written to be idempotent, relying only on current browser state."
+
+Model Name: gpt-4o-mini===== Prompt Sent to Model =====
+I am working on analyzing programming constraints applied to code.
+
+Below are examples of how existing constraints from a benchmark (CodeIF) are grouped into broad categories.
+Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
+  - Covers the CodeIF examples
+  - Covers the full list of constraints and characteristics provided below
+  - Groups all constraints into 10 to 20 meaningful categories
+  - Splits the categories into two types:
+      • simple: general categories that apply to most coding tasks
+      • complex: categories that are problem-specific or instruction-dependent
+
+### CodeIF Constraint Examples
+
+1. Constraint: "Your code should only use global variables."
+   → Category: global
+
+2. Constraint: "Your code should not use more than 2 function calls."
+   → Category: global
+
+3. Constraint: "Your code should not use while-loops."
+   → Category: structural control
+
+4. Constraint: "Variable {variable.name} should be a constant."
+   → Category: variable
+
+5. Constraint: "Your code should include a function named {function.name}."
+   → Category: function
+
+6. Constraint: "The interface names in your code should follow the naming convention."
+   → Category: interface
+
+7. Constraint: "Your code should define a class named {class.name}."
+   → Category: class
+
+8. Constraint: "Your code should be organized in a package named {package.name}."
+   → Category: file
+
+### Characteristics from Dataset
+{characteristics_block}
+
+### Constraints from Dataset
+{constraints_block}
+
+### Task:
+Analyze all of the above. Generate a refined set of constraint categories that capture the different styles, formats, and scopes of constraints observed. Ensure these categories:
+  - Are mutually exclusive and collectively exhaustive
+  - Cover all the examples above and the dataset-specific constraints
+  - Are split into two types: `simple` and `complex`
+  - Include 2 representative examples for each category taken strictly from `{characteristics_block}` or `{constraints_block}` only
+
+### Note:
+Just give the output don't include any other text or explanation
+
+### Output Format (in valid YAML):
+constraint_categories_v3:
+  simple_categories:
+    - name: <category_name>
+      description: <what it includes>
+      examples:
+        - "<example 1 from characteristics_block or constraints_block>"
+        - "<example 2 from characteristics_block or constraints_block>"
+    - ...
+  complex_categories:
+    - name: <category_name>
+      description: <what it includes>
+      examples:
+        - "<example 1 from characteristics_block or constraints_block>"
+        - "<example 2 from characteristics_block or constraints_block>"
+
+
+====Generated Constraints====
+Categories:
+  - constraint_categories_v3:
+  simple_categories:
+    - name: global
+      description: Constraints related to the use of global variables and their limitations.
+      examples:
+        - "Your code should only use global variables."
+        - "Your code should not use more than 2 function calls."
+    - name: structural_control
+      description: Constraints governing the structural flow of control in the code.
+      examples:
+        - "Your code should not use while-loops."
+        - "Your code should not use for-loops."
+    - name: variable
+      description: Constraints related to variable types and definitions.
+      examples:
+        - "Variable {variable.name} should be a constant."
+        - "All string attributes are expected to be of type str."
+    - name: function
+      description: Constraints regarding the definition and naming of functions.
+      examples:
+        - "Your code should include a function named {function.name}."
+        - "Function signatures must remain consistent with original intentions."
+    - name: interface
+      description: Constraints on naming conventions and structure of interfaces.
+      examples:
+        - "The interface names in your code should follow the naming convention."
+        - "Each attribute has a corresponding getter method."
+    - name: class
+      description: Constraints related to class definitions and their structures.
+      examples:
+        - "Your code should define a class named {class.name}."
+        - "The class must encapsulate all behaviors relevant to an animal instance."
+    - name: file
+      description: Constraints regarding file organization and naming.
+      examples:
+        - "Your code should be organized in a package named {package.name}."
+        - "The filename of the encrypted private key must follow the format 'private_key_<hex>.txt'."
+    - name: output_format
+      description: Constraints on the format of outputs produced by the code.
+      examples:
+        - "Output values and error messages are displayed using standard print() statements."
+        - "Output tensor format matches required shape for classification predictions."
+  
+  complex_categories:
+    - name: error_handling
+      description: Constraints related to error management and handling in the code.
+      examples:
+        - "Handle ValueError for range_limit less than or equal to 1 with a specific error message."
+        - "Gracefully handle errors during file attachment and email sending."
+    - name: performance
+      description: Constraints that focus on optimizing code performance and efficiency.
+      examples:
+        - "Avoid unnecessary recomputation by separating exponentiation logic from coprimality check."
+        - "Optimize for large exponents via divide-and-conquer."
+    - name: compatibility
+      description: Constraints ensuring compatibility across different environments or versions.
+      examples:
+        - "Maintain backward compatibility by not modifying existing methods."
+        - "Ensure compatibility between Python 2 and Python 3 using version check."
+    - name: security
+      description: Constraints focused on securing sensitive data and operations.
+      examples:
+        - "Use AES encryption in EAX mode for encrypting the private key."
+        - "Ensure secure credential embedding in the connection string."
+    - name: testing
+      description: Constraints related to the testing framework and coverage requirements.
+      examples:
+        - "Ensure instructions for achieving a minimum code coverage of 90% using pytest-cov."
+        - "Include test cases demonstrating the function's correctness."
+    - name: data_validation
+      description: Constraints that ensure data integrity and validation before processing.
+      examples:
+        - "Check for user existence without adding additional error handling."
+        - "Validate inputs by checking if the argument is a non-negative integer."
+    - name: structural_integrity
+      description: Constraints that maintain the integrity and structure of the codebase.
+      examples:
+        - "Avoid breaking changes between Python 2 and 3 by using a conditional abstraction layer."
+        - "Ensure the original logic structure and error handling is maintained."
+
+Model Name: gpt-4o-mini===== Prompt Sent to Model =====
+I am working on analyzing programming constraints applied to code.
+
+Below are examples of how existing constraints from a benchmark (CodeIF) are grouped into broad categories.
+Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
+  - Covers the CodeIF examples
+  - Covers the full list of constraints and characteristics provided below
+  - Groups all constraints into 10 to 20 meaningful categories
+  - Splits the categories into two types:
+      • simple: general categories that apply to most coding tasks
+      • complex: categories that are problem-specific or instruction-dependent
+
+### CodeIF Constraint Examples
+
+1. Constraint: "Your code should only use global variables."
+   → Category: global
+
+2. Constraint: "Your code should not use more than 2 function calls."
+   → Category: global
+
+3. Constraint: "Your code should not use while-loops."
+   → Category: structural control
+
+4. Constraint: "Variable {variable.name} should be a constant."
+   → Category: variable
+
+5. Constraint: "Your code should include a function named {function.name}."
+   → Category: function
+
+6. Constraint: "The interface names in your code should follow the naming convention."
+   → Category: interface
+
+7. Constraint: "Your code should define a class named {class.name}."
+   → Category: class
+
+8. Constraint: "Your code should be organized in a package named {package.name}."
+   → Category: file
+
+### Characteristics from Dataset
+{characteristics_block}
+
+### Constraints from Dataset
+{constraints_block}
+
+### Task:
+Analyze all of the above. Generate a refined set of constraint categories that capture the different styles, formats, and scopes of constraints observed. Ensure these categories:
+  - Are mutually exclusive and collectively exhaustive
+  - Cover all the examples above and the dataset-specific constraints
+  - Are split into two types: `simple` and `complex`
+  - Include 2 representative examples for each category taken strictly from `{characteristics_block}` or `{constraints_block}` only
+
+### Note:
+Just give the output don't include any other text or explanation
+
+### Output Format (in valid YAML):
+constraint_categories_v3:
+  simple_categories:
+    - name: <category_name>
+      description: <what it includes>
+      examples:
+        - "<example 1 from characteristics_block or constraints_block>"
+        - "<example 2 from characteristics_block or constraints_block>"
+    - ...
+  complex_categories:
+    - name: <category_name>
+      description: <what it includes>
+      examples:
+        - "<example 1 from characteristics_block or constraints_block>"
+        - "<example 2 from characteristics_block or constraints_block>"
+
+
+====Generated Constraints====
+Categories:
+  - constraint_categories_v3:
+  simple_categories:
+    - name: global
+      description: Constraints related to the use of global variables and their limitations.
+      examples:
+        - "Your code should only use global variables."
+        - "Your code should not use more than 2 function calls."
+    - name: structural_control
+      description: Constraints that dictate the structure of control flow in the code.
+      examples:
+        - "Your code should not use while-loops."
+        - "Your code should not use for-loops."
+    - name: variable
+      description: Constraints regarding the definition and usage of variables.
+      examples:
+        - "Variable {variable.name} should be a constant."
+        - "All string attributes are expected to be of type str."
+    - name: function
+      description: Constraints related to the definition and naming of functions.
+      examples:
+        - "Your code should include a function named {function.name}."
+        - "All methods include detailed docstrings explaining their purpose."
+    - name: interface
+      description: Constraints regarding naming conventions and structure of interfaces.
+      examples:
+        - "The interface names in your code should follow the naming convention."
+        - "Each attribute has a corresponding getter method."
+    - name: class
+      description: Constraints related to class definitions and their structures.
+      examples:
+        - "Your code should define a class named {class.name}."
+        - "The class must have methods for each operation."
+    - name: file
+      description: Constraints regarding the organization and naming of files and packages.
+      examples:
+        - "Your code should be organized in a package named {package.name}."
+        - "The filename of the encrypted private key."
+    - name: output_format
+      description: Constraints on the format of output data.
+      examples:
+        - "Output values and error messages are displayed using standard print() statements."
+        - "Return the output in LaTeX table format."
+    - name: error_handling
+      description: Constraints related to how errors are managed in the code.
+      examples:
+        - "Gracefully handles errors during file attachment and email sending."
+        - "Print 'Sensor communication ERROR.' if sensor.measure() returns False."
+
+  complex_categories:
+    - name: algorithmic
+      description: Constraints that are specific to the algorithms used in the code.
+      examples:
+        - "After relaxation, check for negative weight cycles and raise a ValueError if found."
+        - "Implement the Bellman-Ford algorithm to handle negative weights."
+    - name: performance
+      description: Constraints that focus on the efficiency and optimization of the code.
+      examples:
+        - "Avoid unnecessary recomputation by separating exponentiation logic."
+        - "Precompute document frequencies and term frequencies during class initialization."
+    - name: compatibility
+      description: Constraints that ensure compatibility across different environments or versions.
+      examples:
+        - "Ensure backward compatibility by not modifying existing methods."
+        - "Ensure compatibility between Python 2 and Python 3 using version check."
+    - name: security
+      description: Constraints that focus on the security aspects of the code.
+      examples:
+        - "Use AES encryption in EAX mode for encrypting the private key."
+        - "Ensure the encryption password is stored securely."
+    - name: testing
+      description: Constraints related to the testing framework and practices.
+      examples:
+        - "Tests are written to be idempotent, relying only on current browser state."
+        - "Ensure a minimum code coverage of 90% using pytest-cov."
+    - name: data_validation
+      description: Constraints that ensure the integrity and correctness of data inputs and outputs.
+      examples:
+        - "Check for user existence without adding additional error handling."
+        - "Validate inputs by checking if the argument is a non-negative integer."
+    - name: modularity
+      description: Constraints that promote modular design and separation of concerns.
+      examples:
+        - "Implement methods in a simple and direct manner, avoiding additional logic."
+        - "Maintain a clear separation of concerns between CLI setup and core message/event handling."

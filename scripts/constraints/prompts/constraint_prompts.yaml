@@ -108,7 +108,7 @@ constraint_category_generation_v3: |
   Your job is to propose a finer-grained, yet comprehensive set of constraint categories that:
     - Covers the CodeIF examples
     - Covers the full list of constraints and characteristics provided below
-    - Groups all constraints into 20 meaningful categories
+    - Groups all constraints into 10 to 20 meaningful categories
     - Splits the categories into two types:
         • simple: general categories that apply to most coding tasks
         • complex: categories that are problem-specific or instruction-dependent
@@ -150,18 +150,27 @@ constraint_category_generation_v3: |
     - Are mutually exclusive and collectively exhaustive
     - Cover all the examples above and the dataset-specific constraints
     - Are split into two types: `simple` and `complex`
+    - Include 2 representative examples for each category taken strictly from `{characteristics_block}` or `{constraints_block}` only
+
   ### Note:
   Just give the output don't include any other text or explanation
+
   ### Output Format (in valid YAML):
   constraint_categories_v3:
     simple_categories:
       - name: <category_name>
         description: <what it includes>
+        examples:
+          - "<example 1 from characteristics_block or constraints_block>"
+          - "<example 2 from characteristics_block or constraints_block>"
       - ...
     complex_categories:
       - name: <category_name>
         description: <what it includes>
-      - ...
+        examples:
+          - "<example 1 from characteristics_block or constraints_block>"
+          - "<example 2 from characteristics_block or constraints_block>"
+
   
 
 map_items_to_categories: |
@@ -185,3 +194,177 @@ map_items_to_categories: |
   Return a Python dictionary where each key is a category name and the value is a list of items that belong to that category. Ensure all items are included in exactly one category.
 
 
+constraint_category_generation_v4: |
+  I am analyzing a single row from a dataset of programming constraints.
+  Below are:
+    - `instruction_block`: the natural language instruction describing the task
+    - `code_block`: the actual code written by the user
+    - `characteristics_block`: key traits and features of the code
+    - `constraints_block`: explicit coding constraints applied to this row
+
+  Your task is to:
+    - Identify which constraint categories are relevant to the characteristics and constraints provided below
+    - Return a list of all such applicable constraint categories
+    - Make sure tha categories are more generalisable and most relevant 
+    - Ensure that the selected categories collectively cover **all** the constraints and characteristics provided
+
+  
+  ### Instruction
+  {instruction_block}
+
+  ### Code
+  {code_block}
+
+  ### Characteristics
+  {characteristics_block}
+
+  ### Constraints
+  {constraints_block}
+
+  ### Output Format
+  ["<category1>", "<category2>", ...]
+
+  ### Note:
+  Only give the list. Do not include any explanation or descriptions.
+
+
+
+
+constraint_category_generation_v5: |
+  I am analyzing a single row from a dataset of programming constraints.
+  Below are:
+    - `instruction_block`: the natural language instruction describing the task
+    - `code_block`: the actual code written by the user
+    - `characteristics_block`: key traits and features of the code
+    - `constraints_block`: explicit coding constraints applied to this row
+
+  Your task is to:
+    - Identify which constraint categories are relevant to the characteristics and constraints provided below
+    - Return a list of all such applicable constraint categories
+    - Make sure tha categories are more generalisable and most relevant 
+    - Ensure that the selected categories collectively cover **all** the constraints and characteristics provided
+    - Example categories: [global,structural control,variable,function,interface,class,file...]
+    - The example categories are just for reference, the actual categories can go beyond them and can even be more complex
+
+  
+  ### Instruction
+  {instruction_block}
+
+  ### Code
+  {code_block}
+
+  ### Characteristics
+  {characteristics_block}
+
+  ### Constraints
+  {constraints_block}
+
+  ### Output Format
+  ["<category1>", "<category2>", ...]
+
+  ### Note:
+  Only give the list. Do not include any explanation or descriptions.
+
+
+constraint_categories_v6: |
+  You are provided with a programming instruction, a code snippet, and a list of technical items. Each item is either a constraint or a characteristic related to the instruction/code.
+  These constraints are used for testing the complex instruction-following abilities of large language models (LLMs) for code generation. Therefore, the inferred constraint categories should:
+    - Include both simple and complex categories
+    - Be generalizable across diverse coding scenarios
+
+  Your task is to:
+    - Analyze the meaning and scope of each item
+    - Infer an appropriate constraint category name for it
+    - Return a mapping where similar items are grouped under the same category
+
+  ### Instruction:
+  {instruction}
+
+  ### Code:
+  {code}
+
+  ### Items:
+  {item_list}
+
+  ### Output Format:
+  Return a Python dictionary where each key is an inferred category name and the value is a list of items that belong to that category. Items that fall under the same category should be grouped together in the same list.
+
+  ### Note:
+  Each item must be assigned to only one category. Do not leave any items unassigned. Do not include explanations.
+
+constraint_categories_v7: |
+  You are provided with a programming instruction, a code snippet, and a list of technical items. Each item is either a constraint or a characteristic related to the instruction/code.
+
+  No predefined list of constraint categories is provided.
+
+  These constraints are used for testing the complex instruction-following abilities of large language models (LLMs) for code generation. Therefore, the inferred constraint categories should:
+    - Include both simple and complex categories
+    - Be generalizable across diverse coding scenarios
+
+  Your task is to:
+    - Analyze the meaning and scope of each item
+    - Infer an appropriate constraint category name for it
+    - Return a mapping where similar items are grouped under the same category
+
+  ### Example Constraints from CodeIF (for reference only):
+
+  1. "Your code should only use global variables." → Category: global
+  2. "Your code should not use more than 2 function calls." → Category: global
+  3. "Your code should not use while-loops." → Category: structural control
+  4. "Variable [variable.name] should be a constant." → Category: variable
+  5. "Your code should include a function named [function.name]." → Category: function
+  6. "The interface names in your code should follow the naming convention." → Category: interface
+  7. "Your code should define a class named [class.name]." → Category: class
+  8. "Your code should be organized in a package named [package.name]." → Category: file
+
+  > Note: These are only reference examples. The actual constraint categories you infer may be more specific, more complex, or adapted to the given instruction and code context.
+
+  ### Instruction:
+  {instruction}
+
+  ### Code:
+  {code}
+
+  ### Items:
+  {item_list}
+
+  ### Output Format:
+  Return a Python dictionary where each key is an inferred category name and the value is a list of items that belong to that category. Items that fall under the same category should be grouped together in the same list.
+
+  ### Note:
+  Each item must be assigned to only one category. Do not leave any items unassigned. Do not include explanations.
+
+
+
+constraint_categories_tree: |
+  You are a structured reasoning assistant.
+
+  I have two aligned lists extracted from a dataset of instruction-following constraints for code generation:
+
+  - A list of `categories`, each representing a specific type of constraint.
+  - A list of `examples`, where each example corresponds to the category at the same index.
+
+  Your task is to:
+  1. Analyze the semantic meaning of each category using the examples for context.
+  2. Group these categories under meaningful **high-level parent groups** (e.g., “Code Semantics and Structure”, “Testing and Debugging”, “Data Handling and Processing”, “Security and Cryptography”, etc.).
+  3. Construct a **hierarchical tree**:
+     - Each high-level category is a parent node.
+     - All categories are placed as children under appropriate parent nodes.
+
+  These categories are derived from a sample set of constraints. However, your goal is to build a general-purpose hierarchy that represents the broader population of real-world Python coding scenarios. You may create meaningful high-level or mid-level groupings as needed, but **do not invent new fine-grained (leaf) constraint categories** beyond those provided.
+
+  4. If a category does not clearly fit under any existing group, assign it under “.”
+  5. Return your output in **three formats**:
+     - A readable **text-based tree**
+     - A **JSON structure** with nested parent → children mappings
+     - A **YAML version** of the same hierarchy
+
+  Here are the two input lists:
+
+  List of categories:
+  {{CATEGORY_LIST}}
+
+  List of examples:
+  {{EXAMPLE_LIST}}
+
+  Now generate the hierarchy in the specified formats.

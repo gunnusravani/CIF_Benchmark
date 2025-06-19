@@ -1,9 +1,11 @@
 import os
 import yaml
+import pandas as pd
+import json
 from utils.io_utils import load_csv, save_yaml
 from utils.openai_utils import generate_constraint_categories
 from utils.config_loader import load_yaml_config, load_path_registry
-from utils.openai_utils import generate_constraint_categories
+from utils.openai_utils import generate_constraint_categories, generate_tree_categories
 from utils.format_utils import format_list_for_prompt
 
 
@@ -58,5 +60,29 @@ def main():
     #     print("No categories generated.")
 
 
+def generate_tree(file_path, output_path, prompt_template, model, temperature):
+    df = pd.read_csv(file_path)
+    categories = df["Category"].astype(str).tolist()
+    examples = df["Examples"].astype(str).tolist()
+    prompt_filled = prompt_template.replace(
+        "{{CATEGORY_LIST}}", json.dumps(categories, indent=2)
+    ).replace("{{EXAMPLE_LIST}}", json.dumps(examples, indent=2))
+
+    output_text = generate_tree_categories(prompt_filled, model, temperature)
+    with open(output_path, "w") as f:
+        f.write(output_text)
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    paths = load_path_registry()
+    constraint_tasks = load_yaml_config(paths["constraint_tasks"])
+    prompt_config = load_yaml_config(paths["constraint_prompts"])
+
+    defaults = constraint_tasks["constraint_category_tree_generation"]
+    input_path = defaults["input_path"]
+    output_path = defaults["output_path"]
+    model = defaults["model"]
+    temperature = defaults["temperature"]
+    prompt_template = prompt_config["constraint_categories_tree"]
+    generate_tree(input_path, output_path, prompt_template, model, temperature)
