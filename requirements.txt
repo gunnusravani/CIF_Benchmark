@@ -1,12 +1,17 @@
-pyyaml
-pandas
-ratelimit
-openai
-tqdm
-datasets
-langchain_openai
-langchain_ollama
-python-dotenv
+PyYAML>=6.0
+pandas>=1.5
+ratelimit>=2.2
+openai>=1.3
+tqdm>=4.64
+datasets>=2.14
+python-dotenv>=1.0
+
+# LangChain integrations
+langchain_openai>=0.1
+langchain_ollama>=0.1
+
+# Jupyter environment
 jupyterlab>=4.0
+
 
 

@@ -1,5 +1,5 @@
 datasets:
-  - name: MaziyarPanahi/Synthia-Coder-v1.5-I-sharegpt
+  - name: ajibawa-2023/Python-Code-23k-ShareGPT
     split: train
   - name: xlangai/DS-1000
     split: test
