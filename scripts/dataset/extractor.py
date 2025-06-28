@@ -17,7 +17,7 @@ def extract_fields(example, source):
         test = example.get("test", "")
 
     elif source == "Multilingual-Multimodal-NLP/McEval-Instruct":
-        if example.get("language", "").lower() == "python":
+        if example.get("language", "") == "Python" or example.get("language", "") == "python":
             nl = example.get("instruction", "")
             code = example.get("output", "")
             test = example.get("tests", "")
