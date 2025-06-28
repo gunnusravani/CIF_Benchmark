@@ -5,11 +5,46 @@ import json
 from dotenv import load_dotenv
 from openai import OpenAI
 from utils.format_utils import format_list_for_prompt
+from concurrent.futures import ThreadPoolExecutor
+from tqdm import tqdm
+import time
 
 load_dotenv(override=True)
 openai_api_key = os.getenv("OPENAI_API_KEY")
 rits_key = os.getenv("RITS_API_KEY")
 
+SYSTEM_PROMPT = """You are a helpful assistant that provides concise and accurate responses to user queries."""
+def get_model_response_batch(user_prompts=None, system_prompt=SYSTEM_PROMPT):
+    messages_list = [[{
+                "role": "system",
+                "content": system_prompt
+            }, {
+                "role": "user",
+                "content": user_prompt
+            }] for user_prompt in user_prompts]
+    with ThreadPoolExecutor(max_workers=1000) as executor:
+            response_texts = list(tqdm(
+                executor.map(lambda messages: get_response_v2(messages), messages_list),
+                total=len(messages_list),
+                desc="Processing"
+            ))
+    return response_texts
+
+def get_response_v2(messages, max_retries=1):
+    client = get_client()
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages,
+            temperature=0
+            )
+            # print(response)
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"Error on attempt {attempt+1}: {e}")
+            time.sleep(2)
+    return "[]"
 
 # client = OpenAI(api_key=rits_key, base_url=base_url)
 def get_response(client, model, prompt, temperature):
@@ -44,7 +79,7 @@ def convert_text_to_list(text, prompt_template, temperature, model):
         return []
 
 
-def get_client(provider, base_url=None):
+def get_client(provider="openai", base_url=None):
     if provider == "openai":
         openai_key = os.getenv("OPENAI_API_KEY")
         client = OpenAI(api_key=openai_key)
